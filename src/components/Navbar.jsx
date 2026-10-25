@@ -1,25 +1,22 @@
-import { useContext } from 'react'; // 1. Importamos useContext
+import { useContext } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../context/CartContext'; // 2. Importamos CartContext
+import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext'; // Importamos UserContext
 
 const MyNavbar = () => {
-  // 3. Obtenemos el total dinámico desde CartContext (reemplaza const total = 25000)
   const { total } = useContext(CartContext);
-  const token = false; // Cambia a true o false según tus pruebas
+  const { token, logout } = useContext(UserContext); // Obtenemos token y logout
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="px-4">
       <Container fluid>
-        {/* Título de la marca */}
         <Navbar.Brand as={Link} to="/">
           Pizzería Mamma Mía!
         </Navbar.Brand>
 
-        {/* Botón de hamburguesa para dispositivos móviles */}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-        {/* Contenedor colapsable */}
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto d-flex flex-column flex-lg-row gap-2 my-2 my-lg-0 w-100 align-lg-items-center">
             <Link
@@ -39,13 +36,13 @@ const MyNavbar = () => {
                 >
                   🔓 Profile
                 </Link>
-                <Link
-                  to="/logout"
+                <button
+                  onClick={logout}
                   className="btn text-white border border-secondary text-start text-lg-center px-3 py-2"
                   style={{ backgroundColor: 'transparent' }}
                 >
                   🔒 Logout
-                </Link>
+                </button>
               </>
             ) : (
               <>
@@ -67,7 +64,6 @@ const MyNavbar = () => {
             )}
           </Nav>
 
-          {/* Botón Total del Carrito alineado a la derecha */}
           <Nav className="mt-2 mt-lg-0">
             <Link
               to="/cart"
