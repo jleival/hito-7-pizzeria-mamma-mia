@@ -52,7 +52,7 @@ const CardPizza = ({ id, name, price, ingredients, img, desc }) => {
                     </div>
                     <div className="d-flex justify-content-between">
                         {/* 2. Transformamos el botón Ver Más en un Link a la ruta requerida */}
-                        <Link to="/pizza/p001" className="btn btn-outline-dark btn-sm">
+                        <Link to={`/pizza/${id}`} className="btn btn-outline-dark btn-sm">
                             Ver Más 👁️
                         </Link>
                         <Button

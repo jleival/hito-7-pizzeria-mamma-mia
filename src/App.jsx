@@ -20,7 +20,7 @@ function App() {
           <div className='flex-grow-1'>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/pizza/p001" element={<Pizza />} />
+              <Route path="/pizza/:id" element={<Pizza />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />

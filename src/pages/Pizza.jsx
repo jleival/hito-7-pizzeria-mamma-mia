@@ -1,17 +1,31 @@
-import { useContext } from "react"; // 1. Importamos useContext
+import { useContext, useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import { Container, Card, Button } from "react-bootstrap";
-import imgP001 from '../assets/img/p001.jpeg';
-import { PizzaContext } from "../context/PizzaContext"; // 2. Importamos PizzaContext
 import { CartContext } from "../context/CartContext"; // 3. Importamos CartContext
 
 const Pizza = () => {
-    // 4. Consumimos la pizza individual desde PizzaContext
-    const { pizza } = useContext(PizzaContext);
-    // 5. Consumimos agregarAlCarrito desde CartContext
+    // 1. Obtenemos el id de la URL con useParams
+    const { id } = useParams();
+    const [pizza, setPizza] = useState({});
     const { agregarAlCarrito } = useContext(CartContext);
 
+    // 2. Realizamos la petición a la API con el id obtenido
+    useEffect(() => {
+        const obtenerPizza = async () => {
+            try {
+                const url = `${import.meta.env.VITE_API_URL}/api/pizzas/${id}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                setPizza(data);
+            } catch (error) {
+                console.log("Error al cargar la pizza", error);
+            }
+        };
+        obtenerPizza();
+    }, [id]);
+
     const imagenFinal = pizza.img && pizza.img.includes("firebasestorage")
-        ? imgP001
+        ? `/img/${pizza.id}.jpeg`
         : pizza.img;
 
     return (
