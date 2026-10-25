@@ -6,7 +6,7 @@ import { CartContext } from "../context/CartContext"; // Importamos CartContext
 const CardPizza = ({ id, name, price, ingredients, img, desc }) => {
     // 3. Extraemos la función agregarAlCarrito desde el contexto
     const { agregarAlCarrito } = useContext(CartContext);
-    const imagenFinal = img.includes("firebasestorage") ? `img/${id}.jpeg` : img;
+    const imagenFinal = img.includes("firebasestorage") ? `/img/${id}.jpeg` : img;
     return (
         <Card className="tarjeta-pizza m-2 shadow-sm h-100">
             <Card.Img variant="top" src={imagenFinal} style={{ height: '200px', objectFit: 'cover' }} />
