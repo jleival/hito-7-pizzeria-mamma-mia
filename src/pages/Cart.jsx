@@ -1,16 +1,17 @@
-import { useContext } from 'react'; // 1. Importamos useContext en lugar de useState
+import { useContext } from 'react';
 import { Container, Button, Row, Col, Image } from 'react-bootstrap';
-import { CartContext } from '../context/CartContext'; // 2. Importamos CartContext
+import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext'; // 1. Importamos UserContext
 
 const Cart = () => {
-    // 3. Consumimos el estado, las funciones y el total directamente desde CartContext
     const { cart, aumentarCantidad, disminuirCantidad, total } = useContext(CartContext);
+    // 2. Consumimos el token desde UserContext
+    const { token } = useContext(UserContext);
 
     return (
         <Container className="my-5" style={{ maxWidth: '600px' }}>
             <h3 className="mb-4">Detalles del pedido:</h3>
 
-            {/* Recorremos pizzaCart para mostrar cada producto */}
             {cart.map((item) => (
                 <Row key={item.id} className="align-items-center mb-3 border-bottom pb-3">
                     <Col xs={2}>
@@ -31,7 +32,10 @@ const Cart = () => {
             ))}
 
             <h3 className="mt-4 fw-bold">Total: ${total.toLocaleString()}</h3>
-            <Button variant="dark" className="mt-3 w-100">Pagar</Button>
+            {/* 3. Deshabilitamos el botón Pagar si token es false */}
+            <Button variant="dark" className="mt-3 w-100" disabled={!token}>
+                Pagar
+            </Button>
         </Container>
     );
 };
